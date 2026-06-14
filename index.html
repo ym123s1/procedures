@@ -54,6 +54,60 @@
         <main class="protocols-list" id="protocolsContainer">
             <!-- JavaScript will render the cards here -->
         </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>© 2026 פיתוח והנגשה: <a href="#" id="contactLink" class="footer-link">ישראל שכטר</a> | <a href="#" id="termsLink" class="footer-link">תנאי שימוש והסרת אחריות</a></p>
+        </footer>
+    </div>
+
+    <!-- Modal Backdrop Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Contact Modal (ישראל שכטר) -->
+    <div class="modal-card" id="contactModal">
+        <div class="modal-header">
+            <h2 class="modal-title">פרטי יצירת קשר</h2>
+            <button class="modal-close-btn" id="closeContactBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="contact-methods">
+                <a href="tel:0527670137" class="contact-item">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span class="contact-value">052-7670137</span>
+                </a>
+                <a href="https://wa.me/972527670137" target="_blank" class="contact-item">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <span class="contact-value">וואטסאפ (972527670137+)</span>
+                </a>
+                <a href="mailto:ym123s1@gmail.com" class="contact-item">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span class="contact-value">ym123s1@gmail.com</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal (תנאי שימוש והסרת אחריות) -->
+    <div class="modal-card" id="termsModal">
+        <div class="modal-header">
+            <h2 class="modal-title">תנאי שימוש והסרת אחריות</h2>
+            <button class="modal-close-btn" id="closeTermsBtn">&times;</button>
+        </div>
+        <div class="modal-body terms-body">
+            <div class="terms-section">
+                <h3 class="terms-section-title">בעלות על המידע</h3>
+                <p>הפרוטוקולים והנהלים הרפואיים המוצגים בפלטפורמה זו שייכים במלואם למחלקה / למרכז הרפואי, ומוצגים כאן לצורך הנגשה פנימית בלבד.</p>
+            </div>
+            <div class="terms-section">
+                <h3 class="terms-section-title">קניין רוחני</h3>
+                <p>העיצוב, הקוד, ממשק המשתמש ואופן הנגשת המידע בדף זה הינם פיתוח עצמאי ומקורי, ואין להעתיק או לשכפל אותם ללא אישור בכתב מהמפתח.</p>
+            </div>
+            <div class="terms-section">
+                <h3 class="terms-section-title">הסרת אחריות</h3>
+                <p>הפלטפורמה נועדה לסייע בניווט ובהנגשת המידע בלבד. האחריות על יישום הפרוטוקולים, נכונותם הרפואית ועדכונם חלה על המשתמש ועל הגורמים המוסמכים במחלקה בלבד. המפתח אינו נושא באחריות לכל החלטה או פעולה רפואית המתבצעת על בסיס המידע המוצג.</p>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
