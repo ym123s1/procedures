@@ -222,4 +222,54 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Modal elements and logic
+    const modalOverlay = document.getElementById('modalOverlay');
+    const contactModal = document.getElementById('contactModal');
+    const termsModal = document.getElementById('termsModal');
+
+    const contactLink = document.getElementById('contactLink');
+    const termsLink = document.getElementById('termsLink');
+
+    const closeContactBtn = document.getElementById('closeContactBtn');
+    const closeTermsBtn = document.getElementById('closeTermsBtn');
+
+    function openModal(modal) {
+        if (modalOverlay && modal) {
+            modalOverlay.classList.add('active');
+            modal.classList.add('active');
+        }
+    }
+
+    function closeModal() {
+        if (modalOverlay) modalOverlay.classList.remove('active');
+        if (contactModal) contactModal.classList.remove('active');
+        if (termsModal) termsModal.classList.remove('active');
+    }
+
+    if (contactLink) {
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(contactModal);
+        });
+    }
+
+    if (termsLink) {
+        termsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(termsModal);
+        });
+    }
+
+    if (closeContactBtn) {
+        closeContactBtn.addEventListener('click', closeModal);
+    }
+
+    if (closeTermsBtn) {
+        closeTermsBtn.addEventListener('click', closeModal);
+    }
+
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
 });
