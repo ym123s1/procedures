@@ -1,0 +1,389 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Assistant', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --bg-main: #f0f9ff; /* Soft light blue */
+    --bg-card: #ffffff; /* White cards */
+    --text-primary: #0f172a; /* Slate 900 */
+    --text-secondary: #475569; /* Slate 600 */
+    --text-muted: #64748b; /* Slate 500 */
+    --accent-teal: #0d9488; /* Premium Teal 600 */
+    --accent-teal-hover: #0f766e; /* Teal 700 */
+    --accent-teal-light: #f0fdfa; /* Teal 50 */
+    --border-color: #e2e8f0; /* Slate 200 */
+    --border-focus: #94a3b8; /* Slate 400 */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px;
+    direction: rtl; /* RTL for Hebrew */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Medical Header */
+.dashboard-header {
+    padding: 16px 0 8px 0;
+}
+
+.header-main-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 12px;
+    gap: 20px;
+}
+
+.header-brand-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.header-logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-logo-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid var(--accent-teal);
+    box-shadow: var(--shadow-sm);
+}
+
+.dashboard-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+}
+
+.dashboard-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+}
+
+/* Gemini Top Action Banner */
+.action-banner {
+    background: linear-gradient(135deg, #f0fdfa 0%, #ecf5ff 100%);
+    border: 1px solid rgba(13, 148, 136, 0.15);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.action-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.banner-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.banner-text {
+    flex: 1;
+    min-width: 280px;
+}
+
+.banner-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.banner-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.banner-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--accent-teal);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    cursor: pointer;
+}
+
+.banner-button:hover {
+    background-color: var(--accent-teal-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.3);
+}
+
+.banner-button:active {
+    transform: translateY(0);
+}
+
+.button-icon {
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.banner-button:hover .button-icon {
+    transform: translate(-2px, -2px); /* Move top-left due to RTL */
+}
+
+/* Protocols List Container */
+.protocols-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Individual Protocol Card */
+.protocol-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.protocol-card:hover {
+    border-color: rgba(13, 148, 136, 0.3);
+    box-shadow: var(--shadow-md);
+}
+
+.protocol-card.expanded {
+    border-color: rgba(13, 148, 136, 0.5);
+    box-shadow: var(--shadow-md);
+}
+
+/* Card Accordion Trigger */
+.protocol-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: right;
+    transition: background-color var(--transition-fast);
+}
+
+.protocol-trigger:hover {
+    background-color: rgba(13, 148, 136, 0.02);
+}
+
+.protocol-question {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.protocol-arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: transform var(--transition-normal), color var(--transition-fast);
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+
+.protocol-card.expanded .protocol-arrow {
+    transform: rotate(180deg);
+    color: var(--accent-teal);
+}
+
+/* Accordion Smooth Expansion Content Wrapper */
+.protocol-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition-normal);
+}
+
+.protocol-card.expanded .protocol-content-wrapper {
+    grid-template-rows: 1fr;
+}
+
+.protocol-content {
+    overflow: hidden;
+}
+
+.protocol-content-inner {
+    padding: 0 24px 24px 24px;
+    border-top: 1px dashed var(--border-color);
+    background-color: #fafbfc;
+}
+
+/* Plain Text Protocol Response Styles */
+.protocol-response {
+    padding-top: 16px;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    direction: rtl;
+    text-align: right;
+    word-break: break-word;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .header-main-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        margin-bottom: 12px;
+    }
+    .header-brand-wrapper {
+        align-items: center;
+    }
+    .search-bar-container {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+    .search-input-wrapper {
+        max-width: 100%;
+    }
+    .dashboard-subtitle {
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 12px;
+    }
+    .banner-body {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .banner-button {
+        justify-content: center;
+    }
+    .protocol-trigger {
+        padding: 16px;
+    }
+    .protocol-content-inner {
+        padding: 0 16px 16px 16px;
+    }
+}
+
+/* Header Search Bar Styles (Half-sized: max-width 190px) */
+.search-bar-container {
+    flex: 0 1 190px;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 190px;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 14px; /* More compact padding for smaller search box */
+    font-size: 14.5px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-input:focus {
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-icon-wrapper {
+    position: absolute;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Hidden Utility Class */
+.hidden {
+    display: none !important;
+}
+
+/* No Results Styling */
+.no-results-card {
+    background-color: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+

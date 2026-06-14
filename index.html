@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>התומך האישי - פרוטוקולים והנחיות</title>
+    <!-- Assistant Font from Google Fonts for premium look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Medical Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-main-row">
+                    <div class="header-brand-wrapper">
+                        <div class="header-logo-wrapper">
+                            <img src="מתכתב.jpg" alt="לוגו התומך האישי" class="header-logo-img">
+                            <h1 class="dashboard-title">התומך האישי</h1>
+                        </div>
+                        <p class="dashboard-subtitle">הנחיות הכנה ופרוטוקולים רפואיים למחלקות פנימיות</p>
+                    </div>
+                    <!-- Search Bar -->
+                    <div class="search-bar-container">
+                        <div class="search-input-wrapper">
+                            <input type="text" id="keywordSearch" class="search-input" placeholder="חיפוש...">
+                            <div class="search-icon-wrapper">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Top Action Card for Gemini -->
+        <div class="action-banner">
+            <div class="banner-body">
+                <div class="banner-text">
+                    <h2 class="banner-title">מעוניינים לשאול שאלה חופשית בניסוח שלכם?</h2>
+                    <p class="banner-desc">עברו ל-Gem לשאלת שאלות חופשיות</p>
+                </div>
+                <a id="geminiLinkButton" href="https://gemini.google.com/gem/1GKeoRjd4wUCTeysYQqoPiFw6kKjxZC3T?usp=sharing" target="_blank" class="banner-button">
+                    מעבר ל-Gem לשאלות חופשיות
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="button-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Protocols List -->
+        <main class="protocols-list" id="protocolsContainer">
+            <!-- JavaScript will render the cards here -->
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
