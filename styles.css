@@ -323,7 +323,40 @@ body {
 .search-bar-container {
     flex: 0 1 190px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.iv-renewal-card {
+    background-color: var(--accent-teal-light);
+    border: 1px solid rgba(13, 148, 136, 0.18);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: var(--shadow-sm);
+    text-align: right;
+}
+
+.iv-renewal-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-teal-hover);
+}
+
+.iv-renewal-date {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 1px 0;
+}
+
+.iv-renewal-note {
+    font-size: 9.5px;
+    line-height: 1.25;
+    color: var(--text-secondary);
 }
 
 .search-input-wrapper {
