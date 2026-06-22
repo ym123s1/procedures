@@ -563,43 +563,33 @@ body {
         flex-direction: row-reverse;
         align-items: center;
         gap: 8px;
-        position: relative;
-        padding-bottom: 24px; /* Room for the warning note underneath */
     }
     .search-input-wrapper {
         flex: 1;
         max-width: none;
     }
     .iv-renewal-card {
-        flex: 0 0 95px;
-        height: 42px; /* Match height of search input */
-        padding: 4px 6px;
+        flex: 0 0 130px;
+        padding: 8px 10px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        gap: 4px;
+        text-align: right;
     }
     .iv-renewal-title {
-        font-size: 9.5px;
-        line-height: 1.1;
+        font-size: 10.5px;
         text-align: center;
     }
     .iv-renewal-date {
-        font-size: 13px;
-        line-height: 1.1;
-        text-align: center;
-        margin: 0;
+        font-size: 14px;
+        text-align: right;
+        margin: 1px 0;
     }
     .iv-renewal-note {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        text-align: center; /* Center note under the layout */
-        font-size: 9.5px;
-        line-height: 1.2;
+        font-size: 9px;
+        line-height: 1.25;
         color: var(--text-secondary);
+        text-align: right;
     }
     .dashboard-subtitle {
         text-align: center;
