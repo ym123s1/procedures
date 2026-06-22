@@ -276,69 +276,7 @@ body {
     word-break: break-word;
 }
 
-/* Responsive adjustment */
-@media (max-width: 768px) {
-    .header-main-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 14px;
-        margin-bottom: 12px;
-    }
-    .header-brand-wrapper {
-        align-items: center;
-    }
-    .search-bar-container {
-        flex: 1 1 100%;
-        width: 100%;
-        flex-direction: row-reverse;
-        align-items: center;
-        gap: 8px;
-    }
-    .search-input-wrapper {
-        flex: 1;
-        max-width: none;
-    }
-    .iv-renewal-card {
-        flex: 0 0 95px;
-        padding: 6px 8px;
-        text-align: center;
-    }
-    .iv-renewal-title {
-        font-size: 10px;
-        text-align: center;
-    }
-    .iv-renewal-date {
-        font-size: 14px;
-        text-align: center;
-        margin: 0;
-    }
-    .iv-renewal-note {
-        display: none;
-    }
-    .dashboard-subtitle {
-        text-align: center;
-    }
-}
-
-@media (max-width: 600px) {
-    body {
-        padding: 20px 12px;
-    }
-    .banner-body {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-    }
-    .banner-button {
-        justify-content: center;
-    }
-    .protocol-trigger {
-        padding: 16px;
-    }
-    .protocol-content-inner {
-        padding: 0 16px 16px 16px;
-    }
-}
+/* Responsive adjustments moved to end of file to prevent overrides */
 
 /* Header Search Bar Styles (Half-sized: max-width 190px) */
 .search-bar-container {
@@ -602,5 +540,89 @@ body {
     font-size: 14px;
     line-height: 1.6;
     color: var(--text-secondary);
+}
+
+/* =========================================================
+   Responsive Adjustments (Media Queries at bottom to override base styles)
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .header-main-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        margin-bottom: 12px;
+    }
+    .header-brand-wrapper {
+        align-items: center;
+    }
+    .search-bar-container {
+        flex: 1 1 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        padding-bottom: 24px; /* Room for the warning note underneath */
+    }
+    .search-input-wrapper {
+        flex: 1;
+        max-width: none;
+    }
+    .iv-renewal-card {
+        flex: 0 0 95px;
+        height: 42px; /* Match height of search input */
+        padding: 4px 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .iv-renewal-title {
+        font-size: 9.5px;
+        line-height: 1.1;
+        text-align: center;
+    }
+    .iv-renewal-date {
+        font-size: 13px;
+        line-height: 1.1;
+        text-align: center;
+        margin: 0;
+    }
+    .iv-renewal-note {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        text-align: center; /* Center note under the layout */
+        font-size: 9.5px;
+        line-height: 1.2;
+        color: var(--text-secondary);
+    }
+    .dashboard-subtitle {
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 12px;
+    }
+    .banner-body {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .banner-button {
+        justify-content: center;
+    }
+    .protocol-trigger {
+        padding: 16px;
+    }
+    .protocol-content-inner {
+        padding: 0 16px 16px 16px;
+    }
 }
 
