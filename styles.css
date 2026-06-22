@@ -290,9 +290,30 @@ body {
     .search-bar-container {
         flex: 1 1 100%;
         width: 100%;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 8px;
     }
     .search-input-wrapper {
-        max-width: 100%;
+        flex: 1;
+        max-width: none;
+    }
+    .iv-renewal-card {
+        flex: 0 0 95px;
+        padding: 6px 8px;
+        text-align: center;
+    }
+    .iv-renewal-title {
+        font-size: 10px;
+        text-align: center;
+    }
+    .iv-renewal-date {
+        font-size: 14px;
+        text-align: center;
+        margin: 0;
+    }
+    .iv-renewal-note {
+        display: none;
     }
     .dashboard-subtitle {
         text-align: center;
