@@ -344,6 +344,7 @@ body {
     font-size: 11px;
     font-weight: 700;
     color: var(--accent-teal-hover);
+    text-align: center;
 }
 
 .iv-renewal-date {
@@ -351,6 +352,7 @@ body {
     font-weight: 800;
     color: var(--text-primary);
     margin: 1px 0;
+    text-align: center;
 }
 
 .iv-renewal-note {
