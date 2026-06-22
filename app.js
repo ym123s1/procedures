@@ -97,11 +97,30 @@ function formatProtocolResponse(answerText) {
     return answerText.replace(/\s{2,}/g, '\n');
 }
 
+/**
+ * Updates the IV Renewal date to show the date from 4 days ago in DD/MM format.
+ */
+function updateIVRenewalDate() {
+    const ivRenewalDateEl = document.getElementById('ivRenewalDate');
+    if (!ivRenewalDateEl) return;
+    
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() - 4);
+    
+    const day = String(targetDate.getDate()).padStart(2, '0');
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+    
+    ivRenewalDateEl.textContent = `מ-${day}/${month}`;
+}
+
 // =========================================================
 // Initialization & Events
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the IV Renewal dynamic date
+    updateIVRenewalDate();
+
     const container = document.getElementById('protocolsContainer');
     if (!container) return;
 
