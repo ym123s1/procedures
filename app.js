@@ -348,6 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcDesiredDoseUnit = document.getElementById('calcDesiredDoseUnit');
     const calcStockDose = document.getElementById('calcStockDose');
     const calcStockDoseUnit = document.getElementById('calcStockDoseUnit');
+    const calcStockVolume = document.getElementById('calcStockVolume');
     const doseResult = document.getElementById('doseResult');
     
     const BASE_CONVERSION_FACTORS = {
@@ -360,16 +361,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateDose() {
         const desired = parseFloat(calcDesiredDose.value);
         const stock = parseFloat(calcStockDose.value);
+        const volume = parseFloat(calcStockVolume.value);
         const desiredUnit = calcDesiredDoseUnit.value;
         const stockUnit = calcStockDoseUnit.value;
         
-        if (desired > 0 && stock > 0) {
+        if (desired > 0 && stock > 0 && volume > 0) {
             // Convert both to grams (g) to do calculations in common unit
             const desiredInGrams = desired / BASE_CONVERSION_FACTORS[desiredUnit];
             const stockInGrams = stock / BASE_CONVERSION_FACTORS[stockUnit];
             
-            // Result is Volume (mL) assuming stock concentration is per 1 mL
-            const result = desiredInGrams / stockInGrams;
+            // Result is Volume (mL) based on (desired / stock) * volume
+            const result = (desiredInGrams / stockInGrams) * volume;
             doseResult.textContent = formatCalcResult(result);
         } else {
             doseResult.textContent = '--';
@@ -380,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (calcDesiredDoseUnit) calcDesiredDoseUnit.addEventListener('change', calculateDose);
     if (calcStockDose) calcStockDose.addEventListener('input', calculateDose);
     if (calcStockDoseUnit) calcStockDoseUnit.addEventListener('change', calculateDose);
+    if (calcStockVolume) calcStockVolume.addEventListener('input', calculateDose);
     
     // Tab 3: Concentration & Dilution logic
     const calcOrigConc = document.getElementById('calcOrigConc');
