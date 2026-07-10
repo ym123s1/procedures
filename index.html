@@ -148,24 +148,24 @@
             
             <!-- Tab 1: Desired Dose Calculator -->
             <div class="calc-tab-content active" id="doseTab">
-                <p class="calc-description">חישוב נפח הזרקה/מתן (במ"ל) מתוך המינון הקיים במלאי (הנחה שהריכוז הוא לכל 1 מ"ל):</p>
+                <p class="calc-description">חישוב נפח הזרקה/מתן (במ"ל) מתוך המינון ונפח האמפולה הקיימים במלאי:</p>
                 <div class="calc-grid">
                     <div class="input-group full-width">
-                        <label for="calcDesiredDose">מינון רצוי:</label>
+                        <label for="calcDesiredDose">מינון מבוקש למטופל (Desired Dose):</label>
                         <div class="input-with-select">
-                            <input type="number" id="calcDesiredDose" class="calc-input" placeholder="לדוגמה: 500" min="0" step="any">
+                            <input type="number" id="calcDesiredDose" class="calc-input" placeholder="לדוגמה: 75" min="0" step="any">
                             <select id="calcDesiredDoseUnit" class="calc-select-inline">
                                 <option value="g">גרם (g)</option>
-                                <option value="mg">מ"ג (mg)</option>
-                                <option value="mcg" selected>מק"ג (mcg)</option>
+                                <option value="mg" selected>מ"ג (mg)</option>
+                                <option value="mcg">מק"ג (mcg)</option>
                                 <option value="ng">ננוגרם (ng)</option>
                             </select>
                         </div>
                     </div>
-                    <div class="input-group full-width">
-                        <label for="calcStockDose">מינון קיים במלאי (לכל 1 מ"ל):</label>
+                    <div class="input-group">
+                        <label for="calcStockDose">כמות באמפולה/בקבוקון (Stock Dose):</label>
                         <div class="input-with-select">
-                            <input type="number" id="calcStockDose" class="calc-input" placeholder="לדוגמה: 1" min="0" step="any">
+                            <input type="number" id="calcStockDose" class="calc-input" placeholder="לדוגמה: 100" min="0" step="any">
                             <select id="calcStockDoseUnit" class="calc-select-inline">
                                 <option value="g">גרם (g)</option>
                                 <option value="mg" selected>מ"ג (mg)</option>
@@ -173,6 +173,10 @@
                                 <option value="ng">ננוגרם (ng)</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="calcStockVolume">נפח האמפולה במ"ל (Stock Volume):</label>
+                        <input type="number" id="calcStockVolume" class="calc-input" placeholder="לדוגמה: 2" min="0" step="any">
                     </div>
                 </div>
                 
