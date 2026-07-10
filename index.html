@@ -141,7 +141,6 @@
         <!-- Tab Controllers -->
         <div class="calc-tabs">
             <button class="calc-tab active" data-tab="doseTab">מינון רצוי</button>
-            <button class="calc-tab" data-tab="convertTab">המרת יחידות</button>
             <button class="calc-tab" data-tab="dilutionTab">ריכוז ודילול</button>
         </div>
         
@@ -149,19 +148,31 @@
             
             <!-- Tab 1: Desired Dose Calculator -->
             <div class="calc-tab-content active" id="doseTab">
-                <p class="calc-description">חישוב הנפח הנדרש להזרקה מתוך המינון הקיים במלאי:</p>
+                <p class="calc-description">חישוב נפח הזרקה/מתן (במ"ל) מתוך המינון הקיים במלאי (הנחה שהריכוז הוא לכל 1 מ"ל):</p>
                 <div class="calc-grid">
-                    <div class="input-group">
-                        <label for="calcDesiredDose">מינון רצוי (mg / mcg וכדומה):</label>
-                        <input type="number" id="calcDesiredDose" class="calc-input" placeholder="לדוגמה: 75" min="0" step="any">
+                    <div class="input-group full-width">
+                        <label for="calcDesiredDose">מינון רצוי:</label>
+                        <div class="input-with-select">
+                            <input type="number" id="calcDesiredDose" class="calc-input" placeholder="לדוגמה: 500" min="0" step="any">
+                            <select id="calcDesiredDoseUnit" class="calc-select-inline">
+                                <option value="g">גרם (g)</option>
+                                <option value="mg">מ"ג (mg)</option>
+                                <option value="mcg" selected>מק"ג (mcg)</option>
+                                <option value="ng">ננוגרם (ng)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="calcStockDose">מינון קיים במלאי (Stock Dose):</label>
-                        <input type="number" id="calcStockDose" class="calc-input" placeholder="לדוגמה: 100" min="0" step="any">
-                    </div>
-                    <div class="input-group">
-                        <label for="calcStockVolume">נפח קיים במלאי (Stock Volume - mL):</label>
-                        <input type="number" id="calcStockVolume" class="calc-input" placeholder="לדוגמה: 2" min="0" step="any">
+                    <div class="input-group full-width">
+                        <label for="calcStockDose">מינון קיים במלאי (לכל 1 מ"ל):</label>
+                        <div class="input-with-select">
+                            <input type="number" id="calcStockDose" class="calc-input" placeholder="לדוגמה: 1" min="0" step="any">
+                            <select id="calcStockDoseUnit" class="calc-select-inline">
+                                <option value="g">גרם (g)</option>
+                                <option value="mg" selected>מ"ג (mg)</option>
+                                <option value="mcg">מק"ג (mcg)</option>
+                                <option value="ng">ננוגרם (ng)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 
@@ -172,56 +183,25 @@
                 </div>
             </div>
             
-            <!-- Tab 2: Unit Conversion Calculator -->
-            <div class="calc-tab-content" id="convertTab">
-                <p class="calc-description">המרת יחידות משקל רוקחיות במהירות:</p>
-                <div class="calc-grid">
-                    <div class="input-group full-width">
-                        <label for="calcConvertValue">הזן ערך להמרה:</label>
-                        <input type="number" id="calcConvertValue" class="calc-input" placeholder="לדוגמה: 1.5" min="0" step="any">
-                    </div>
-                    <div class="input-group">
-                        <label for="calcConvertFrom">מיחידה:</label>
-                        <select id="calcConvertFrom" class="calc-select">
-                            <option value="g">גרם (g)</option>
-                            <option value="mg" selected>מילגרם (mg)</option>
-                            <option value="mcg">מיקרוגרם (mcg)</option>
-                            <option value="ng">ננוגרם (ng)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="calcConvertTo">ליחידה:</label>
-                        <select id="calcConvertTo" class="calc-select">
-                            <option value="g">גרם (g)</option>
-                            <option value="mg">מילגרם (mg)</option>
-                            <option value="mcg" selected>מיקרוגרם (mcg)</option>
-                            <option value="ng">ננוגרם (ng)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="calc-result-box">
-                    <div class="calc-result-title">תוצאה:</div>
-                    <div class="calc-result-value" id="convertResult">--</div>
-                    <div class="calc-result-unit" id="convertResultUnit">mcg</div>
-                </div>
-            </div>
-            
             <!-- Tab 3: Concentration & Dilution Calculator -->
             <div class="calc-tab-content" id="dilutionTab">
-                <p class="calc-description">חישוב דילול תמיסה לקבלת ריכוז יעד רצוי:</p>
+                <p class="calc-description">חישוב ריכוז או דילול תמיסה (מציין כמה נוזל להוסיף ומה הנפח הסופי):</p>
                 <div class="calc-grid">
                     <div class="input-group">
-                        <label for="calcOrigConc">ריכוז מקורי (mg/mL):</label>
-                        <input type="number" id="calcOrigConc" class="calc-input" placeholder="לדוגמה: 10" min="0" step="any">
+                        <label for="calcOrigConc">ריכוז מקורי (% או מ"ג/מ"ל):</label>
+                        <input type="number" id="calcOrigConc" class="calc-input" placeholder="לדוגמה: 0.9" min="0" step="any">
                     </div>
                     <div class="input-group">
                         <label for="calcOrigVol">נפח מקורי במ"ל (mL):</label>
-                        <input type="number" id="calcOrigVol" class="calc-input" placeholder="לדוגמה: 5" min="0" step="any">
+                        <input type="number" id="calcOrigVol" class="calc-input" placeholder="לדוגמה: 100" min="0" step="any">
                     </div>
-                    <div class="input-group full-width">
-                        <label for="calcTargetConc">ריכוז יעד רצוי (mg/mL):</label>
-                        <input type="number" id="calcTargetConc" class="calc-input" placeholder="לדוגמה: 2" min="0" step="any">
+                    <div class="input-group">
+                        <label for="calcTargetConc">ריכוז יעד רצוי (% או מ"ג/מ"ל):</label>
+                        <input type="number" id="calcTargetConc" class="calc-input" placeholder="לדוגמה: 3" min="0" step="any">
+                    </div>
+                    <div class="input-group">
+                        <label for="calcAddedConc">ריכוז הנוזל להוספה (% או מ"ג/מ"ל):</label>
+                        <input type="number" id="calcAddedConc" class="calc-input" placeholder="לדוגמה: 23.4 (או 0 למים/סליין)" min="0" step="any">
                     </div>
                 </div>
                 
@@ -233,7 +213,7 @@
                     </div>
                     <div class="result-divider"></div>
                     <div class="result-col">
-                        <div class="calc-result-title">נפח נוזל דילול להוספה (NS וכדומה):</div>
+                        <div class="calc-result-title" id="dilutionAddedVolTitle">נפח להוספה:</div>
                         <div class="calc-result-value highlight" id="dilutionAddedVol">--</div>
                         <div class="calc-result-unit">מ"ל (mL)</div>
                     </div>
