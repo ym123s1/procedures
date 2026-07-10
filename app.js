@@ -345,17 +345,31 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Tab 1: Desired Dose logic
     const calcDesiredDose = document.getElementById('calcDesiredDose');
+    const calcDesiredDoseUnit = document.getElementById('calcDesiredDoseUnit');
     const calcStockDose = document.getElementById('calcStockDose');
-    const calcStockVolume = document.getElementById('calcStockVolume');
+    const calcStockDoseUnit = document.getElementById('calcStockDoseUnit');
     const doseResult = document.getElementById('doseResult');
+    
+    const BASE_CONVERSION_FACTORS = {
+        'g': 1.0,
+        'mg': 1e3,
+        'mcg': 1e6,
+        'ng': 1e9
+    };
     
     function calculateDose() {
         const desired = parseFloat(calcDesiredDose.value);
         const stock = parseFloat(calcStockDose.value);
-        const volume = parseFloat(calcStockVolume.value);
+        const desiredUnit = calcDesiredDoseUnit.value;
+        const stockUnit = calcStockDoseUnit.value;
         
-        if (desired > 0 && stock > 0 && volume > 0) {
-            const result = (desired / stock) * volume;
+        if (desired > 0 && stock > 0) {
+            // Convert both to grams (g) to do calculations in common unit
+            const desiredInGrams = desired / BASE_CONVERSION_FACTORS[desiredUnit];
+            const stockInGrams = stock / BASE_CONVERSION_FACTORS[stockUnit];
+            
+            // Result is Volume (mL) assuming stock concentration is per 1 mL
+            const result = desiredInGrams / stockInGrams;
             doseResult.textContent = formatCalcResult(result);
         } else {
             doseResult.textContent = '--';
@@ -363,71 +377,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     if (calcDesiredDose) calcDesiredDose.addEventListener('input', calculateDose);
+    if (calcDesiredDoseUnit) calcDesiredDoseUnit.addEventListener('change', calculateDose);
     if (calcStockDose) calcStockDose.addEventListener('input', calculateDose);
-    if (calcStockVolume) calcStockVolume.addEventListener('input', calculateDose);
-    
-    // Tab 2: Unit Conversion logic
-    const calcConvertValue = document.getElementById('calcConvertValue');
-    const calcConvertFrom = document.getElementById('calcConvertFrom');
-    const calcConvertTo = document.getElementById('calcConvertTo');
-    const convertResult = document.getElementById('convertResult');
-    const convertResultUnit = document.getElementById('convertResultUnit');
-    
-    const CONVERSION_FACTORS = {
-        'g': 1.0,
-        'mg': 1e3,
-        'mcg': 1e6,
-        'ng': 1e9
-    };
-    
-    function calculateConversion() {
-        const value = parseFloat(calcConvertValue.value);
-        const fromUnit = calcConvertFrom.value;
-        const toUnit = calcConvertTo.value;
-        
-        if (!isNaN(value) && value >= 0) {
-            const fromFactor = CONVERSION_FACTORS[fromUnit];
-            const toFactor = CONVERSION_FACTORS[toUnit];
-            const result = value * (toFactor / fromFactor);
-            convertResult.textContent = formatCalcResult(result);
-            convertResultUnit.textContent = toUnit;
-        } else {
-            convertResult.textContent = '--';
-            convertResultUnit.textContent = toUnit;
-        }
-    }
-    
-    if (calcConvertValue) calcConvertValue.addEventListener('input', calculateConversion);
-    if (calcConvertFrom) calcConvertFrom.addEventListener('change', calculateConversion);
-    if (calcConvertTo) calcConvertTo.addEventListener('change', calculateConversion);
+    if (calcStockDoseUnit) calcStockDoseUnit.addEventListener('change', calculateDose);
     
     // Tab 3: Concentration & Dilution logic
     const calcOrigConc = document.getElementById('calcOrigConc');
     const calcOrigVol = document.getElementById('calcOrigVol');
     const calcTargetConc = document.getElementById('calcTargetConc');
+    const calcAddedConc = document.getElementById('calcAddedConc');
     const dilutionFinalVol = document.getElementById('dilutionFinalVol');
     const dilutionAddedVol = document.getElementById('dilutionAddedVol');
+    const dilutionAddedVolTitle = document.getElementById('dilutionAddedVolTitle');
     
     function calculateDilution() {
         const origConc = parseFloat(calcOrigConc.value);
         const origVol = parseFloat(calcOrigVol.value);
         const targetConc = parseFloat(calcTargetConc.value);
+        const addedConc = parseFloat(calcAddedConc.value);
         
-        if (origConc > 0 && origVol > 0 && targetConc > 0) {
-            if (targetConc >= origConc) {
+        if (origConc >= 0 && origVol > 0 && targetConc >= 0 && addedConc >= 0) {
+            // Check validation: Target concentration must be strictly between Original and Added concentration
+            const isTargetBetween = (targetConc > Math.min(origConc, addedConc)) && (targetConc < Math.max(origConc, addedConc));
+            
+            if (origConc === targetConc) {
+                // If they are already equal, no liquid needs to be added
+                dilutionFinalVol.textContent = formatCalcResult(origVol);
+                dilutionAddedVol.textContent = '0';
+                dilutionAddedVolTitle.textContent = 'נפח להוספה:';
+                dilutionAddedVol.style.fontSize = '';
+            } else if (!isTargetBetween) {
+                // If it is not between, it is physically impossible
                 dilutionFinalVol.textContent = 'שגיאה';
-                dilutionAddedVol.textContent = 'ריכוז יעד גבוה/שווה למקור';
-                dilutionAddedVol.style.fontSize = '12px'; // Smaller font for warning on mobile
+                dilutionAddedVol.textContent = 'ריכוז יעד לא אפשרי';
+                dilutionAddedVolTitle.textContent = 'שגיאה:';
+                dilutionAddedVol.style.fontSize = '12px'; // Smaller font for warning message
             } else {
-                const finalVol = (origConc * origVol) / targetConc;
-                const addedVol = finalVol - origVol;
+                // Apply general mixture formula: V2 = V1 * |C1 - Ct| / |Ct - C2|
+                const addedVol = origVol * (Math.abs(origConc - targetConc) / Math.abs(targetConc - addedConc));
+                const finalVol = origVol + addedVol;
+                
                 dilutionFinalVol.textContent = formatCalcResult(finalVol);
                 dilutionAddedVol.textContent = formatCalcResult(addedVol);
                 dilutionAddedVol.style.fontSize = ''; // Revert style
+                
+                // Customize title depending on whether it's dilution or concentration
+                if (targetConc < origConc) {
+                    dilutionAddedVolTitle.textContent = 'נפח נוזל מדלל להוספה:';
+                } else {
+                    dilutionAddedVolTitle.textContent = 'נפח נוזל מרכז להוספה:';
+                }
             }
         } else {
             dilutionFinalVol.textContent = '--';
             dilutionAddedVol.textContent = '--';
+            dilutionAddedVolTitle.textContent = 'נפח להוספה:';
             dilutionAddedVol.style.fontSize = '';
         }
     }
@@ -435,4 +439,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (calcOrigConc) calcOrigConc.addEventListener('input', calculateDilution);
     if (calcOrigVol) calcOrigVol.addEventListener('input', calculateDilution);
     if (calcTargetConc) calcTargetConc.addEventListener('input', calculateDilution);
+    if (calcAddedConc) calcAddedConc.addEventListener('input', calculateDilution);
 });
