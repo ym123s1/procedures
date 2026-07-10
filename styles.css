@@ -543,6 +543,243 @@ body {
 }
 
 /* =========================================================
+   Floating Action Button (FAB) for Calculator
+   ========================================================= */
+.calculator-fab {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-hover) 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-size: 15.5px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(13, 148, 136, 0.35);
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.calculator-fab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(13, 148, 136, 0.45);
+}
+
+.calculator-fab:active {
+    transform: translateY(-1px);
+}
+
+.fab-icon {
+    flex-shrink: 0;
+    transition: transform var(--transition-normal);
+}
+
+.calculator-fab:hover .fab-icon {
+    transform: rotate(15deg);
+}
+
+/* =========================================================
+   Calculator Modal Styles
+   ========================================================= */
+.calculator-modal {
+    max-width: 550px;
+    width: 95%;
+    padding: 24px;
+}
+
+/* Tab Navigation inside Modal */
+.calc-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 20px;
+    gap: 4px;
+}
+
+.calc-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: color var(--transition-fast);
+    text-align: center;
+}
+
+.calc-tab:hover {
+    color: var(--text-primary);
+}
+
+.calc-tab.active {
+    color: var(--accent-teal);
+}
+
+.calc-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--accent-teal);
+    border-radius: 3px 3px 0 0;
+}
+
+/* Tab Contents */
+.calc-tab-content {
+    display: none;
+}
+
+.calc-tab-content.active {
+    display: block;
+    animation: fadeInTab 0.25s ease-out;
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calc-description {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+/* Grid for Inputs */
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group.full-width {
+    grid-column: span 2;
+}
+
+.input-group label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.calc-input, .calc-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14.5px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.calc-input:focus, .calc-select:focus {
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
+.calc-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.65;
+}
+
+.calc-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: left 12px center;
+    background-size: 15px;
+    padding-left: 36px; /* Space for the arrow on the left due to RTL */
+}
+
+/* Result Box Styling */
+.calc-result-box {
+    background-color: var(--accent-teal-light);
+    border: 1.5px solid rgba(13, 148, 136, 0.2);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-shadow: var(--shadow-sm);
+}
+
+.calc-result-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-teal-hover);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.calc-result-value {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+    margin: 4px 0;
+}
+
+.calc-result-unit {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Double Result layout for Dilution */
+.calc-result-box.double-result {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 12px;
+}
+
+.result-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.result-divider {
+    width: 1.5px;
+    align-self: stretch;
+    background-color: rgba(13, 148, 136, 0.15);
+}
+
+.calc-result-value.highlight {
+    color: var(--accent-teal-hover);
+}
+
+/* =========================================================
    Responsive Adjustments (Media Queries at bottom to override base styles)
    ========================================================= */
 
@@ -613,6 +850,29 @@ body {
     }
     .protocol-content-inner {
         padding: 0 16px 16px 16px;
+    }
+    .calculator-fab {
+        bottom: 20px;
+        left: 20px;
+        padding: 12px 18px;
+        font-size: 14.5px;
+        gap: 8px;
+    }
+    .calc-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .input-group.full-width {
+        grid-column: span 1;
+    }
+    .calc-result-box.double-result {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .result-divider {
+        width: 100%;
+        height: 1.5px;
+        background-color: rgba(13, 148, 136, 0.15);
     }
 }
 
