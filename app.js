@@ -264,10 +264,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const calculatorModal = document.getElementById('calculatorModal');
+
     function closeModal() {
         if (modalOverlay) modalOverlay.classList.remove('active');
         if (contactModal) contactModal.classList.remove('active');
         if (termsModal) termsModal.classList.remove('active');
+        if (calculatorModal) calculatorModal.classList.remove('active');
     }
 
     if (contactLink) {
@@ -295,4 +298,141 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalOverlay) {
         modalOverlay.addEventListener('click', closeModal);
     }
+
+    // =========================================================
+    // Calculator Functionality
+    // =========================================================
+    const calculatorFab = document.getElementById('calculatorFab');
+    const closeCalcBtn = document.getElementById('closeCalcBtn');
+    
+    if (calculatorFab) {
+        calculatorFab.addEventListener('click', () => {
+            openModal(calculatorModal);
+        });
+    }
+    
+    if (closeCalcBtn) {
+        closeCalcBtn.addEventListener('click', closeModal);
+    }
+    
+    // Tab switching logic
+    const calcTabs = document.querySelectorAll('.calc-tab');
+    calcTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTabId = tab.getAttribute('data-tab');
+            
+            // Remove active classes
+            calcTabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.calc-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Add active classes
+            tab.classList.add('active');
+            const targetContent = document.getElementById(targetTabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+    
+    // Helper to format float values cleanly
+    function formatCalcResult(val) {
+        if (isNaN(val) || !isFinite(val)) return '--';
+        // Round to maximum of 4 decimal places, remove trailing zeros
+        return Number(val.toFixed(4)).toString();
+    }
+    
+    // Tab 1: Desired Dose logic
+    const calcDesiredDose = document.getElementById('calcDesiredDose');
+    const calcStockDose = document.getElementById('calcStockDose');
+    const calcStockVolume = document.getElementById('calcStockVolume');
+    const doseResult = document.getElementById('doseResult');
+    
+    function calculateDose() {
+        const desired = parseFloat(calcDesiredDose.value);
+        const stock = parseFloat(calcStockDose.value);
+        const volume = parseFloat(calcStockVolume.value);
+        
+        if (desired > 0 && stock > 0 && volume > 0) {
+            const result = (desired / stock) * volume;
+            doseResult.textContent = formatCalcResult(result);
+        } else {
+            doseResult.textContent = '--';
+        }
+    }
+    
+    if (calcDesiredDose) calcDesiredDose.addEventListener('input', calculateDose);
+    if (calcStockDose) calcStockDose.addEventListener('input', calculateDose);
+    if (calcStockVolume) calcStockVolume.addEventListener('input', calculateDose);
+    
+    // Tab 2: Unit Conversion logic
+    const calcConvertValue = document.getElementById('calcConvertValue');
+    const calcConvertFrom = document.getElementById('calcConvertFrom');
+    const calcConvertTo = document.getElementById('calcConvertTo');
+    const convertResult = document.getElementById('convertResult');
+    const convertResultUnit = document.getElementById('convertResultUnit');
+    
+    const CONVERSION_FACTORS = {
+        'g': 1.0,
+        'mg': 1e3,
+        'mcg': 1e6,
+        'ng': 1e9
+    };
+    
+    function calculateConversion() {
+        const value = parseFloat(calcConvertValue.value);
+        const fromUnit = calcConvertFrom.value;
+        const toUnit = calcConvertTo.value;
+        
+        if (!isNaN(value) && value >= 0) {
+            const fromFactor = CONVERSION_FACTORS[fromUnit];
+            const toFactor = CONVERSION_FACTORS[toUnit];
+            const result = value * (toFactor / fromFactor);
+            convertResult.textContent = formatCalcResult(result);
+            convertResultUnit.textContent = toUnit;
+        } else {
+            convertResult.textContent = '--';
+            convertResultUnit.textContent = toUnit;
+        }
+    }
+    
+    if (calcConvertValue) calcConvertValue.addEventListener('input', calculateConversion);
+    if (calcConvertFrom) calcConvertFrom.addEventListener('change', calculateConversion);
+    if (calcConvertTo) calcConvertTo.addEventListener('change', calculateConversion);
+    
+    // Tab 3: Concentration & Dilution logic
+    const calcOrigConc = document.getElementById('calcOrigConc');
+    const calcOrigVol = document.getElementById('calcOrigVol');
+    const calcTargetConc = document.getElementById('calcTargetConc');
+    const dilutionFinalVol = document.getElementById('dilutionFinalVol');
+    const dilutionAddedVol = document.getElementById('dilutionAddedVol');
+    
+    function calculateDilution() {
+        const origConc = parseFloat(calcOrigConc.value);
+        const origVol = parseFloat(calcOrigVol.value);
+        const targetConc = parseFloat(calcTargetConc.value);
+        
+        if (origConc > 0 && origVol > 0 && targetConc > 0) {
+            if (targetConc >= origConc) {
+                dilutionFinalVol.textContent = 'שגיאה';
+                dilutionAddedVol.textContent = 'ריכוז יעד גבוה/שווה למקור';
+                dilutionAddedVol.style.fontSize = '12px'; // Smaller font for warning on mobile
+            } else {
+                const finalVol = (origConc * origVol) / targetConc;
+                const addedVol = finalVol - origVol;
+                dilutionFinalVol.textContent = formatCalcResult(finalVol);
+                dilutionAddedVol.textContent = formatCalcResult(addedVol);
+                dilutionAddedVol.style.fontSize = ''; // Revert style
+            }
+        } else {
+            dilutionFinalVol.textContent = '--';
+            dilutionAddedVol.textContent = '--';
+            dilutionAddedVol.style.fontSize = '';
+        }
+    }
+    
+    if (calcOrigConc) calcOrigConc.addEventListener('input', calculateDilution);
+    if (calcOrigVol) calcOrigVol.addEventListener('input', calculateDilution);
+    if (calcTargetConc) calcTargetConc.addEventListener('input', calculateDilution);
 });
