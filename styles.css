@@ -866,6 +866,9 @@ body {
     .dashboard-subtitle {
         text-align: center;
     }
+    .dashboard-footer {
+        padding-bottom: 80px;
+    }
 }
 
 @media (max-width: 600px) {
