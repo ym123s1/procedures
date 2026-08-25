@@ -814,6 +814,42 @@ body {
     color: var(--accent-teal-hover);
 }
 
+/* PDF Attachment Download Buttons */
+.pdf-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+    direction: rtl;
+}
+
+.pdf-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--accent-teal-light);
+    border: 1px solid rgba(13, 148, 136, 0.25);
+    border-radius: 10px;
+    padding: 10px 16px;
+    color: var(--accent-teal-hover);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+    cursor: pointer;
+}
+
+.pdf-download-btn:hover {
+    background-color: rgba(13, 148, 136, 0.15);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.pdf-icon {
+    color: #ef4444; /* Standard recognizable red for PDF file types */
+    flex-shrink: 0;
+}
+
 /* =========================================================
    Responsive Adjustments (Media Queries at bottom to override base styles)
    ========================================================= */
@@ -911,6 +947,11 @@ body {
         width: 100%;
         height: 1.5px;
         background-color: rgba(13, 148, 136, 0.15);
+    }
+    .pdf-download-btn {
+        font-size: 12.5px;
+        padding: 8px 12px;
+        gap: 6px;
     }
 }
 
